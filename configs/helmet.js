@@ -1,6 +1,7 @@
 const isProduction = process.env.NODE_ENV === "production";
 
 const FRONTEND_URL = "https://digitalmarketsqure.com";
+const API_URL = "https://digitalmarketsqure.vercel.app";
 
 module.exports = {
   contentSecurityPolicy: isProduction
@@ -22,7 +23,7 @@ module.exports = {
           fontSrc: ["'self'", FRONTEND_URL, "data:"],
 
           // API calls from frontend
-          connectSrc: ["'self'", FRONTEND_URL],
+          connectSrc: ["'self'", FRONTEND_URL, API_URL],
 
           // Disallow iframes entirely
           frameAncestors: ["'none'"],

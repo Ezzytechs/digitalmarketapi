@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { auth } = require("../middlewares/auth/auth");
 const authController = require("../controllers/auth.controller");
-const { createRateLimiter } = require("../configs/reteLimiter");
+const { createRateLimiter } = require("../configs/rateLimiter");
 const validate = require("../middlewares/validate");
 const { createPendingUserRules } = require("../validators");
 
@@ -19,6 +19,7 @@ router.post("/register/otp/verify", authController.verifyRegOtp);
 
 //register user
 router.post("/register", authController.register);
+
 //user login
 router.post("/login", createRateLimiter(5, 10), authController.login);
 

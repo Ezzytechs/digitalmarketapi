@@ -7,6 +7,8 @@ router.get("/:userId", auth, walletController.getWallet);
 router.put("/update-wallet", auth, walletController.updateWallet);
 router.get(
   "/get/flutterwave-balance",
+  auth,
+  admin,
   walletController.getAdminFlutterwaveWalletBalance,
 );
 module.exports = router;
