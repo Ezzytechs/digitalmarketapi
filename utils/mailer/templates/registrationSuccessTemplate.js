@@ -1,3 +1,5 @@
+const credentials = require("../../../configs/credentials");
+
 exports.registrationSuccessTemplate = ({ userName, assetPageUrl }) => {
   const year = new Date().getFullYear();
   return `<!doctype html>
@@ -8,7 +10,7 @@ exports.registrationSuccessTemplate = ({ userName, assetPageUrl }) => {
 
         <!-- Header -->
         <h2 style="font-size:22px; color:#FACC15; margin-bottom:15px;">
-          🎉 Welcome to DigiAssets, ${userName}!
+          🎉 Welcome to ${credentials.appName}, ${userName}!
         </h2>
 
         <!-- Message -->
@@ -19,7 +21,7 @@ exports.registrationSuccessTemplate = ({ userName, assetPageUrl }) => {
         </p>
 
         <p style="line-height:1.6; margin:15px 0; color:#E5E7EB;">
-          With DigiAssets, you can:
+          With Digital Market Square, you can:
           <ul style="margin:15px 0; padding-left:20px; color:#E5E7EB;">
             <li>🔐 Buy and sell verified digital assets with confidence</li>
             <li>💸 Receive secure payments, instantly</li>
@@ -42,7 +44,7 @@ exports.registrationSuccessTemplate = ({ userName, assetPageUrl }) => {
 
         <!-- Footer -->
         <p style="font-size:12px; color:#9CA3AF; text-align:center; margin-top:20px;">
-          © ${year} DigiAssets • All rights reserved.
+          © ${year} ${credentials.appName} • All rights reserved.
         </p>
       </div>
     </div>

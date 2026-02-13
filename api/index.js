@@ -1,55 +1,34 @@
-// require("dotenv").config();
-// const express = require("express");
-// const morgan = require("morgan");
-// const connectDB = require("../configs/db");
-// const PORT = process.env.PORT || 3000;
+const http = require("http");
+const app = require("../app");
+const connectDB = require("../configs/db");
+const { PORT } = require("../configs/env");
 
-// //routes
-// const authRoutes = require("../routes/auth.routes");
-// const userRoutes = require("../routes/users.routes");
-// const orderRoutes = require("../routes/order.routes");
-// const blogRoutes = require("../routes/blog.routes");
-// const categoryRoutes = require("../routes/category.routes");
-// const assetRoutes = require("../routes/assets.routes");
-// const walletRoutes = require("../routes/wallet.routes");
-// const paymentRoutes = require("../routes/payment.routes");
-// const transactionRoutes = require("../routes/transactions.routes");
-// const platformRoutes = require("../routes/platform.routes");
-// const notificationRoutes = require("../routes/notification.routes");
-// const cartRoutes = require("../routes/cart.routes");
-// const app = express();
+const server = http.createServer(app);
 
-// // Middleware
-// app.use(morgan("dev"));
-// app.use(express.json()); // Parse application/json
-// app.use(express.urlencoded({ extended: true })); // Parse x-www-form-urlencoded
+connectDB();
+// Start server
+server.listen(PORT, () => {
+  console.log(`Worker ${process.pid} running on PORT:${PORT}`);
+});
 
-// //CORS
-// const cors = require("cors");
-// app.use(cors("*"));
+// Graceful shutdown
+const shutdown = (signal) => {
+  console.log(`\n${signal} received. Shutting down gracefully...`);
+  server.close(() => {
+    console.log("HTTP server closed");
+    process.exit(0);
+  });
+};
 
-// // Routes
-// app.get("/", (req, res) => {
-//   res.send(`Hello from worker: ${process.pid}`);
-// });
+process.on("SIGTERM", shutdown);
+process.on("SIGINT", shutdown);
 
-// const apiVersion = "api/v1";
-// app.use(`/${apiVersion}/users`, userRoutes);
-// app.use(`/${apiVersion}/auth`, authRoutes);
-// app.use(`/${apiVersion}/orders`, orderRoutes);
-// app.use(`/${apiVersion}/blog`, blogRoutes);
-// app.use(`/${apiVersion}/categories`, categoryRoutes);
-// app.use(`/${apiVersion}/assets`, assetRoutes);
-// app.use(`/${apiVersion}/wallet`, walletRoutes);
-// app.use(`/${apiVersion}/payment`, paymentRoutes);
-// app.use(`/${apiVersion}/transactions`, transactionRoutes);
-// app.use(`/${apiVersion}/platforms`, platformRoutes);
-// app.use(`/${apiVersion}/notifications`, notificationRoutes);
-// app.use(`/${apiVersion}/cart`, cartRoutes);
+// Catch unhandled errors
+process.on("unhandledRejection", (reason) => {
+  console.error("Unhandled Rejection:", reason);
+});
 
-// // Start server
-// app.listen(PORT, () => {
-//   console.log(`Worker ${process.pid} running on PORT:${PORT}`);
-// });
-// // }
-// connectDB(); // Connect to MongoDB
+process.on("uncaughtException", (err) => {
+  console.error("Uncaught Exception:", err);
+  process.exit(1);
+});

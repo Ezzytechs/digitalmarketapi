@@ -41,7 +41,7 @@ exports.listAsset = async (req, res) => {
     const { nodeId } = await uploadFile(
       file.buffer,
       file.originalname,
-      "asset"
+      "asset",
     );
 
     // create new asset
@@ -90,12 +90,76 @@ exports.listAsset = async (req, res) => {
   }
 };
 
+exports.searchAssets = async (req, res) => {
+  try {
+    const input = req.query.q?.trim();
+    let { limit = 20, page = 1, status = "available" } = req.query;
+
+    if (!input) return res.json([]);
+
+    const query = { $or: [] };
+
+    // Text search (pages, football, betting tips, etc.)
+    query.$or.push({ $text: { $search: input } });
+
+    // If input is a number → search numeric fields
+    if (!isNaN(input)) {
+      const num = Number(input);
+      query.$or.push({ price: num });
+      query.$or.push({ "metadata.accountAge": num });
+      query.$or.push({ "metadata.followers": num });
+    }
+
+    // Platform name → ObjectId
+    const platform = await Platform.findOne({
+      name: { $regex: input, $options: "i" },
+    });
+
+    if (platform) {
+      query.$or.push({ platform: platform._id });
+    }
+
+    // Category name → ObjectId
+    const category = await Category.findOne({
+      name: { $regex: input, $options: "i" },
+    });
+
+    if (category) {
+      query.$or.push({ category: category._id });
+    }
+
+    // Fallback if nothing matched
+    if (query.$or.length === 0) {
+      return res.json([]);
+    }
+
+    // Pagination options
+    const options = {
+      filter: query,
+      limit: parseInt(limit),
+      page: parseInt(page),
+      populate: "seller platform category",
+      populateSelect: "username email phone name icon",
+      select: "-description",
+    };
+
+    const assets = await paginate(Asset, options);
+
+    if (!assets || assets.length === 0)
+      return res.status(404).json({ message: "No matching assets found" });
+
+    res.status(200).json(assets);
+  } catch (err) {
+    res.status(500).json({ error: err.message || "Something went wrong" });
+  }
+};
+
 // Get all assets [pass query to filter for user, sold status...]
 exports.getAllAssets = async (req, res) => {
   try {
     let { limit = 20, page = 1, ...query } = req.query || {};
     const options = {
-      filter: { ...query },
+      filter: { ...query, status: "available" },
       limit,
       page,
       populate: "seller platform category",
@@ -236,7 +300,7 @@ exports.updateAsset = async (req, res) => {
       const { nodeId } = await uploadFile(
         file.buffer,
         file.originalname,
-        "asset"
+        "asset",
       );
       newImage = nodeId;
     }
@@ -250,7 +314,7 @@ exports.updateAsset = async (req, res) => {
       updatedAsset = await Asset.findOneAndUpdate(
         { _id: req.params.id, seller: req.user.userId },
         { ...req.body, seller: req.user.userId, ...newImage },
-        { new: true, runValidators: true }
+        { new: true, runValidators: true },
       );
     }
     if (!updatedAsset)
@@ -285,32 +349,6 @@ exports.deleteAsset = async (req, res) => {
         .status(404)
         .json({ message: "Asset not found or unable to delete asset" });
     res.status(200).json({ message: "Asset deleted successfully" });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-};
-
-// Filter assets by platform or category
-exports.filterAssets = async (req, res) => {
-  try {
-    let query = {};
-    if (req.query.platform) query.platform = req.query.platform;
-    if (req.query.category) query.category = req.query.category;
-
-    const limit = req.query.limit || 20;
-    const page = req.query.page || 1;
-
-    const options = {
-      filter: { query },
-      populate: "seller",
-      limit,
-      page,
-      select: "-description",
-    };
-    const assets = await paginate(Asset, options);
-    if (!assets || assets.length === 0)
-      return res.status(404).json({ message: "No available assets found" });
-    res.status(200).json(assets);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

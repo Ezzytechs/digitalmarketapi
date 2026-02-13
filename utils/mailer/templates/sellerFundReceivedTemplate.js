@@ -1,3 +1,5 @@
+const credentials = require("../../../configs/credentials");
+
 exports.sellerFundReceivedTemplate = ({
   sellerName,
   amount,
@@ -26,7 +28,7 @@ exports.sellerFundReceivedTemplate = ({
       </p>
 
       <p style="font-size:12px; color:#aaa; margin-top:20px;">
-        © ${year} DigiAssets Wallet. All rights reserved.
+        © ${year} ${credentials.appName}. All rights reserved.
       </p>
     </div>
   </div>

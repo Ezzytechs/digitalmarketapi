@@ -1,4 +1,12 @@
-exports.credentialsSubmittedAdminTemplate = ({ adminName, buyerName, buyerEmail, assetTitle, sellerName, viewUrl }) => {
+const credentials = require("../../../configs/credentials");
+exports.credentialsSubmittedAdminTemplate = ({
+  adminName,
+  buyerName,
+  buyerEmail,
+  assetTitle,
+  sellerName,
+  viewUrl,
+}) => {
   const year = new Date().getFullYear();
   return `<!doctype html>
 <html lang="en">
@@ -37,7 +45,7 @@ exports.credentialsSubmittedAdminTemplate = ({ adminName, buyerName, buyerEmail,
         
         <!-- Footer -->
         <p style="font-size:12px; color:#9CA3AF; text-align:center; margin-top:20px;">
-          © ${year} DigiAssets • Internal Notification
+          © ${year} ${credentials.appName} • Internal Notification
         </p>
       </div>
     </div>

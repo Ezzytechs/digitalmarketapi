@@ -1,3 +1,4 @@
+const credentials = require("../../../configs/credentials");
 exports.assetSoldTemplate = ({ sellerName, assetTitle, price }) => {
   const year = new Date().getFullYear();
   return `<!doctype html>
@@ -20,7 +21,7 @@ exports.assetSoldTemplate = ({ sellerName, assetTitle, price }) => {
         
         <!-- Call-to-action Button -->
         <p style="margin:25px 0; text-align:center;">
-          <a href="#" 
+          <a href="${credentials.dashboardurl}" 
              style="background:#9333EA; color:#fff; padding:12px 28px; border-radius:8px; text-decoration:none; font-weight:bold; display:inline-block;">
              Track Payment
           </a>
@@ -28,7 +29,7 @@ exports.assetSoldTemplate = ({ sellerName, assetTitle, price }) => {
         
         <!-- Footer -->
         <p style="font-size:12px; color:#9CA3AF; text-align:center; margin-top:20px;">
-          © ${year} DigiAssets. Keep growing with us.
+          © ${year} ${credentials.appName}. Keep growing with us.
         </p>
       </div>
     </div>

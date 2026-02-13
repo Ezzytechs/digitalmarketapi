@@ -1,4 +1,9 @@
-exports.credentialsSubmittedTemplate = ({ userName, assetTitle, orderViewUrl}) => {
+const credentials = require("../../../configs/credentials");
+exports.credentialsSubmittedTemplate = ({
+  userName,
+  assetTitle,
+  orderViewUrl,
+}) => {
   const year = new Date().getFullYear();
   return `<!doctype html>
 <html lang="en">
@@ -32,7 +37,7 @@ exports.credentialsSubmittedTemplate = ({ userName, assetTitle, orderViewUrl}) =
         
         <!-- Footer -->
         <p style="font-size:12px; color:#9CA3AF; text-align:center; margin-top:20px;">
-          © ${year} DigiAssets. Your trust, our priority.
+          © ${year} ${credentials.appName}. Your trust, our priority.
         </p>
       </div>
     </div>

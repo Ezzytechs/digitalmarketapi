@@ -1,3 +1,5 @@
+const credentials = require("../../../configs/credentials");
+
 exports.orderCancelledBuyerTemplate = ({ buyerName, amount }) => {
   const year = new Date().getFullYear();
   return `<!doctype html>
@@ -18,7 +20,7 @@ exports.orderCancelledBuyerTemplate = ({ buyerName, amount }) => {
 
         <!-- Call to action -->
         <p style="margin:25px 0; text-align:center;">
-          <a href="#"
+          <a href="${credentials.dashboardurl}"
              style="background:#2563EB; color:#fff; padding:12px 28px; border-radius:8px; text-decoration:none; font-weight:bold; display:inline-block;">
              💳 View My Orders
           </a>
@@ -26,7 +28,7 @@ exports.orderCancelledBuyerTemplate = ({ buyerName, amount }) => {
 
         <!-- Footer -->
         <p style="font-size:12px; color:#9CA3AF; text-align:center; margin-top:20px;">
-          © ${year} DigiAssets Wallet • Secure Marketplace for Digital Assets
+          © ${year} ${credentials.appName} • Secure Marketplace for Digital Assets
         </p>
       </div>
     </div>

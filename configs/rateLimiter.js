@@ -7,10 +7,10 @@ const limiter = rateLimit({
   limit: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
   standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
   legacyHeaders: false, // Disable the `X-RateLimit-*` headers
-  ipv6Subnet: 48, // Set to 60 or 64 to be less aggressive, or 52 or 48 to be more aggressive
+  ipv6Subnet: 48,
   message: {
     success: false,
-    message: "Too many requests from this IP, please try again later.",
+    message: "Please try again after 15 minutes.",
   },
 });
 
@@ -24,7 +24,7 @@ const createRateLimiter = (maxAttempts = 100, minutes = 15) => {
     ipv6Subnet: 48, // Set to 60 or 64 to be less aggressive, or 52 or 48 to be more aggressive
     message: {
       success: false,
-      message: "Too many requests from this IP, please try again later.",
+      message: "Too many attempts, please try again after 15 minutes.",
     },
   });
 };

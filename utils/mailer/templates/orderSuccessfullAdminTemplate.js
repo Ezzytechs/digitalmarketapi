@@ -1,4 +1,12 @@
-exports.orderSuccessfullAdminTemplate = ({ buyerName, sellerName, assetTitle, price, dashboardUrl }) => {
+const credentials = require("../../../configs/credentials");
+
+exports.orderSuccessfullAdminTemplate = ({
+  buyerName,
+  sellerName,
+  assetTitle,
+  price,
+  dashboardUrl,
+}) => {
   const year = new Date().getFullYear();
   return `<!doctype html>
 <html lang="en">
@@ -27,7 +35,7 @@ exports.orderSuccessfullAdminTemplate = ({ buyerName, sellerName, assetTitle, pr
         
         <!-- Footer -->
         <p style="font-size:12px; color:#9CA3AF; text-align:center; margin-top:15px;">
-          © ${year} DigiAssets • Admin Alert
+          © ${year} ${credentials.appName} • Admin Alert
         </p>
       </div>
     </div>

@@ -104,6 +104,7 @@ const placeOrderCommand = async ({
           buyerName: buyer ? buyer.username : email,
           assetTitle: orderedAsset.title,
           price: orderedAsset.price,
+          buyerEmail: email,
         },
       });
 

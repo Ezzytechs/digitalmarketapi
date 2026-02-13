@@ -8,40 +8,107 @@ module.exports = {
     ? {
         useDefaults: true,
         directives: {
+          /**
+           * Default
+           */
           defaultSrc: ["'self'"],
 
-          // JS only from self (API)
-          scriptSrc: ["'self'"],
+          /**
+           * Scripts
+           */
+          scriptSrc: ["'self'", "https://checkout.flutterwave.com"],
 
-          // Allow inline styles (React / Next / Tailwind safe)
+          /**
+           * Styles
+           */
           styleSrc: ["'self'", "'unsafe-inline'", FRONTEND_URL],
 
-          // Images from frontend + data URLs
-          imgSrc: ["'self'", FRONTEND_URL, "data:", "blob:"],
+          /**
+           * Images / previews
+           */
+          imgSrc: [
+            "'self'",
+            FRONTEND_URL,
+            "data:",
+            "blob:",
+            "https://checkout.flutterwave.com",
+            "https://mega.nz",
+            "https://g.api.mega.co.nz",
+          ],
 
-          // Fonts
+          /**
+           * Fonts
+           */
           fontSrc: ["'self'", FRONTEND_URL, "data:"],
 
-          // API calls from frontend
-          connectSrc: ["'self'", FRONTEND_URL, API_URL],
+          /**
+           * API / Fetch / Uploads / Downloads
+           */
+          connectSrc: [
+            "'self'",
+            FRONTEND_URL,
+            API_URL,
 
-          // Disallow iframes entirely
+            // Flutterwave
+            "https://api.flutterwave.com",
+
+            // CurrencyFreaks
+            "https://api.currencyfreaks.com",
+
+            // Resend
+            "https://api.resend.com",
+
+            // MEGA
+            "https://api.mega.nz",
+            "https://g.api.mega.co.nz",
+          ],
+
+          /**
+           * Media (file downloads / streaming)
+           */
+          mediaSrc: ["'self'", "blob:", "https://g.api.mega.co.nz"],
+
+          /**
+           * Iframes (Flutterwave checkout)
+           */
+          frameSrc: ["'self'", "https://checkout.flutterwave.com"],
+
+          /**
+           * Prevent embedding
+           */
           frameAncestors: ["'none'"],
 
-          // Disable plugins
+          /**
+           * Disable plugins
+           */
           objectSrc: ["'none'"],
 
-          // Force HTTPS
+          /**
+           * Force HTTPS
+           */
           upgradeInsecureRequests: [],
         },
       }
     : false,
 
+  /**
+   * Clickjacking protection
+   */
   frameguard: { action: "deny" },
 
+  /**
+   * Prevent MIME sniffing
+   */
   noSniff: true,
+
+  /**
+   * XSS protection (legacy)
+   */
   xssFilter: true,
 
+  /**
+   * HSTS
+   */
   hsts: isProduction
     ? {
         maxAge: 63072000,
@@ -50,12 +117,21 @@ module.exports = {
       }
     : false,
 
+  /**
+   * Hide X-Powered-By
+   */
   hidePoweredBy: true,
 
+  /**
+   * Referrer Policy
+   */
   referrerPolicy: {
     policy: "strict-origin-when-cross-origin",
   },
 
+  /**
+   * Permissions Policy
+   */
   permissionsPolicy: {
     features: {
       geolocation: [],
@@ -67,9 +143,15 @@ module.exports = {
     },
   },
 
+  /**
+   * DNS Prefetch
+   */
   dnsPrefetchControl: { allow: false },
 
-  crossOriginEmbedderPolicy: false, // usually breaks frontend builds
+  /**
+   * Cross-origin policies
+   */
+  crossOriginEmbedderPolicy: false,
   crossOriginOpenerPolicy: { policy: "same-origin" },
   crossOriginResourcePolicy: { policy: "cross-origin" },
 };

@@ -1,7 +1,15 @@
-exports.orderReportedSellerTemplate = ({ sellerName, orderId, assetTitle, amount, reportDate, supportUrl }) => {
-const year = new Date().getFullYear();
-return `<!doctype html>
+const credentials = require("../../../configs/credentials");
 
+exports.orderReportedSellerTemplate = ({
+  sellerName,
+  orderId,
+  assetTitle,
+  amount,
+  reportDate,
+  supportUrl,
+}) => {
+  const year = new Date().getFullYear();
+  return `<!doctype html>
 <html lang="en">
   <body style="font-family: Arial, sans-serif; background-color:#0b1020; margin:0; padding:20px; color:#F9FAFB;">
     <div style="max-width:700px; margin:40px auto; padding:20px;">
@@ -34,7 +42,7 @@ return `<!doctype html>
     </ul>
 
     <p style="margin:18px 0 6px 0; text-align:center;">
-      <a href="${supportUrl || '#'}"
+      <a href="${supportUrl || "#"}"
          style="background:#6B21A8; color:#fff; padding:12px 20px; border-radius:8px; text-decoration:none; font-weight:bold; display:inline-block;">
          💬 Contact Support
       </a>
@@ -46,10 +54,11 @@ return `<!doctype html>
 
     <!-- Footer -->
     <p style="font-size:12px; color:#9CA3AF; text-align:center; margin-top:20px;">
-      © ${year} DigiAssets Wallet • Trust & Safety
+      © ${year} ${credentials.appName} • Trust & Safety
     </p>
   </div>
 </div>
 
   </body>
-</html>`; };
+</html>`;
+};

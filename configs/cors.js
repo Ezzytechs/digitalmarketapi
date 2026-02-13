@@ -1,11 +1,15 @@
 const isProduction = process.env.NODE_ENV === "production";
 const allowedOriginRegex = isProduction
   ? [
-      /^https:\/\/digitalmarketsqure\.com$/,
-      /^https:\/\/www\.digitalmarketsqure\.com$/,
-      /^https:\/\/digitalmarketsqure-.*\.vercel\.app$/,
+      /^https:\/\/digitalmarketsquare\.com$/,
+      /^https:\/\/www\.digitalmarketsquare\.com$/,
+      /^https:\/\/digitalmarketsquare-.*\.vercel\.app$/,
     ]
-  : [/^http:\/\/localhost:3000$/, /^http:\/\/127\.0\.0\.1:3000$/];
+  : [
+      /^http:\/\/localhost:3000$/,
+      /^https:\/\/digitalmarketsquare\.com$/,
+      /^http:\/\/127\.0\.0\.1:3000$/,
+    ];
 
 module.exports = {
   origin: function (origin, callback) {

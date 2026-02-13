@@ -6,17 +6,17 @@ const assetSchema = new mongoose.Schema(
       type: String,
       required: true,
       trim: true,
-      index:true,
+      index: true,
     },
     platform: {
       type: mongoose.Schema.Types.ObjectId,
-      ref:"Platform",
-      index:true,
+      ref: "Platform",
+      index: true,
     },
     category: {
       type: mongoose.Schema.Types.ObjectId,
-      ref:"Category",
-      index:true,
+      ref: "Category",
+      index: true,
     },
     url: {
       type: String,
@@ -32,7 +32,7 @@ const assetSchema = new mongoose.Schema(
       type: Number,
       required: true,
       min: 0,
-      index:true,
+      index: true,
     },
     seller: {
       type: mongoose.Schema.Types.ObjectId,
@@ -42,8 +42,8 @@ const assetSchema = new mongoose.Schema(
 
     status: {
       type: String,
-      enum:["sold", "available", "featured"],
-      default:"available"
+      enum: ["sold", "available", "featured"],
+      default: "available",
     },
     image: String,
     metadata: {
@@ -58,7 +58,14 @@ const assetSchema = new mongoose.Schema(
       default: false,
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
+
+assetSchema.index({
+  title: "text",
+  price: "text",
+  description: "text",
+  "metadata.niche": "text",
+});
 
 module.exports = mongoose.model("Asset", assetSchema);

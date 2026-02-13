@@ -1,3 +1,5 @@
+const credentials = require("../../../configs/credentials");
+
 exports.orderCancelledSellerTemplate = ({ sellerName }) => {
   const year = new Date().getFullYear();
   return `<!doctype html>
@@ -22,13 +24,13 @@ exports.orderCancelledSellerTemplate = ({ sellerName }) => {
           <p style="margin:8px 0; line-height:1.6;">
             If this cancellation was due to <strong>fake credentials</strong> or  
             <strong>false information provided</strong> about your asset,  
-            your account will be <strong>permanently banned</strong> and the asset will be <strong>removed from the marketplace</strong>.
+            your account will be <strong>permanently banned</strong> and all your assets will be <strong>removed from the marketplace</strong>.
           </p>
         </div>
 
         <!-- Footer -->
         <p style="font-size:12px; color:#9CA3AF; text-align:center; margin-top:20px;">
-          © ${year} DigiAssets Wallet • Secure Marketplace for Digital Assets
+          © ${year} ${credentials.appName} • Secure Marketplace for Digital Assets
         </p>
       </div>
     </div>

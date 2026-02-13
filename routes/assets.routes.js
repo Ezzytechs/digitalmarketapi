@@ -54,6 +54,6 @@ router.put(
 router.delete("/:id", auth, assetController.deleteAsset);
 
 //search filter
-router.get("/search", assetController.filterAssets);
+router.get("/search", assetController.searchAssets);
 
 module.exports = router;

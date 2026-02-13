@@ -1,4 +1,10 @@
-exports.paymentFailedBuyerTemplate = ({ buyerName, assetTitle, failureReason }) => {
+const credentials = require("../../../configs/credentials");
+
+exports.paymentFailedBuyerTemplate = ({
+  buyerName,
+  assetTitle,
+  failureReason,
+}) => {
   const year = new Date().getFullYear();
   return `<!doctype html>
 <html lang="en">
@@ -40,7 +46,7 @@ exports.paymentFailedBuyerTemplate = ({ buyerName, assetTitle, failureReason }) 
         
         <!-- Footer -->
         <p style="font-size:12px; color:#9CA3AF; text-align:center; margin-top:20px;">
-          © ${year} DigiAssets. Need help? Contact support anytime.
+          © ${year} ${credentials.appName}. Need help? Contact support anytime.
         </p>
       </div>
     </div>

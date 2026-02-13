@@ -1,3 +1,5 @@
+const credentials = require("../../../configs/credentials");
+
 exports.passwordChangedTemplate = ({ userName }) => {
   const year = new Date().getFullYear();
   return `<!doctype html>
@@ -29,7 +31,7 @@ exports.passwordChangedTemplate = ({ userName }) => {
         
         <!-- Footer -->
         <p style="font-size:12px; color:#9CA3AF; text-align:center; margin-top:20px;">
-          © ${year} DigiAssets • Security First. Always.
+          © ${year} ${credentials.appName} • Security First. Always.
         </p>
       </div>
     </div>

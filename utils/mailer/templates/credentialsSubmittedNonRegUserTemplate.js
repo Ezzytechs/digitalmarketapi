@@ -82,7 +82,7 @@ exports.credentialsSubmittedNonRegUserTemplate = ({
 
         <!-- Footer -->
         <p style="font-size:12px; color:#9CA3AF; text-align:center; margin-top:25px;">
-          © ${year} DigiAssets • Secure Marketplace for Digital Assets
+          © ${year} ${credentials.appName} • Secure Marketplace for Digital Assets
         </p>
       </div>
     </div>

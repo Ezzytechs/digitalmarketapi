@@ -1,6 +1,17 @@
-exports.orderReportedAdminTemplate = ({ adminName, orderId, buyerName, sellerName, assetTitle, amount, reportDate, adminDashboardUrl }) => {
-const year = new Date().getFullYear();
-return `<!doctype html>
+const credentials = require("../../../configs/credentials");
+
+exports.orderReportedAdminTemplate = ({
+  adminName,
+  orderId,
+  buyerName,
+  sellerName,
+  assetTitle,
+  amount,
+  reportDate,
+  adminDashboardUrl,
+}) => {
+  const year = new Date().getFullYear();
+  return `<!doctype html>
 <html lang="en">
   <body style="font-family: Arial, sans-serif; background-color:#0b1020; margin:0; padding:20px; color:#F9FAFB;">
     <div style="max-width:700px; margin:40px auto; padding:20px;">
@@ -41,10 +52,10 @@ return `<!doctype html>
 
     <!-- Footer -->
     <p style="font-size:12px; color:#9CA3AF; text-align:center; margin-top:20px;">
-      © ${year} DigiAssets Wallet • Admin Notification
+      © ${year} ${credentials.appName} • Admin Notification
     </p>
   </div>
 </div>
   </body>
-</html>`; 
+</html>`;
 };

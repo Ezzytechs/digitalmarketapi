@@ -46,8 +46,6 @@ exports.cancelOrder = async (req, res) => {
         },
       });
     }
-
-    console.log(order.seller);
     order.status = "cancelled";
     await order.save();
 
@@ -91,7 +89,6 @@ exports.cancelOrder = async (req, res) => {
 exports.cancelOrderNonRegUser = async (req, res) => {
   try {
     const { email, id } = req.query;
-    console.log("cancelling order...");
     const order = await Order.findOne({
       "nonRegUser.email": email,
       _id: id,
@@ -479,6 +476,7 @@ exports.submitCredentials = async (req, res) => {
         templateData: {
           orderId: order._id,
           buyerName,
+          buyerEmail: order.nonRegUser?.email,
           sellerName: order.seller.username,
           assetTitle: order.asset?.title,
           loginName: req.body?.username,

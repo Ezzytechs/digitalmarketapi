@@ -66,7 +66,7 @@ exports.orderSuccessfullBuyerTemplate = ({
 
         <!-- Footer -->
         <p style="font-size:12px; color:#9CA3AF; text-align:center; margin-top:25px;">
-          © ${year} DigiAssets • Order Confirmation
+          © ${year} ${credentials.appName} • Order Confirmation
         </p>
       </div>
     </div>

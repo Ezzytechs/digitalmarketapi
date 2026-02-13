@@ -222,7 +222,7 @@ exports.login = async (req, res) => {
     return res.status(200).json({ accessToken, success: true });
   } catch (err) {
     console.log(err);
-    return res.status(500).json({ message: "Something went wrong" });
+    return res.status(500).json({ message: "Something went wrong", err });
   }
 };
 

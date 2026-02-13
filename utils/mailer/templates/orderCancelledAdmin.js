@@ -1,4 +1,11 @@
-exports.orderCancelledAdminTemplate = ({ buyerName, sellerName, amount, reason, orderId }) => {
+const credentials = require("../../../configs/credentials");
+exports.orderCancelledAdminTemplate = ({
+  buyerName,
+  sellerName,
+  amount,
+  reason,
+  orderId,
+}) => {
   const year = new Date().getFullYear();
   return `<!doctype html>
 <html lang="en">
@@ -45,7 +52,7 @@ exports.orderCancelledAdminTemplate = ({ buyerName, sellerName, amount, reason, 
 
         <!-- Footer -->
         <p style="font-size:12px; color:#9CA3AF; text-align:center; margin-top:20px;">
-          © ${year} DigiAssets Wallet • Internal Admin Notification
+          © ${year} ${credentials.appName} • Internal Admin Notification
         </p>
       </div>
     </div>

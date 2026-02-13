@@ -1,3 +1,5 @@
+const credentials = require("../../../configs/credentials");
+
 exports.paymentFailedAdminTemplate = ({
   adminName,
   buyerName,
@@ -33,7 +35,7 @@ exports.paymentFailedAdminTemplate = ({
         
         <!-- Footer -->
         <p style="font-size:12px; color:#9CA3AF; text-align:center; margin-top:20px;">
-          © ${year} DigiAssets • Internal Notification
+          © ${year} ${credentials.appName} • Internal Notification
         </p>
       </div>
     </div>

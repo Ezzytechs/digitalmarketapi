@@ -1,4 +1,12 @@
-exports.orderSuccessfullSellerTemplate = ({ sellerName, buyerName, assetTitle, price, dashboardUrl }) => {
+const credentials = require("../../../configs/credentials");
+
+exports.orderSuccessfullSellerTemplate = ({
+  sellerName,
+  buyerName,
+  assetTitle,
+  price,
+  dashboardUrl,
+}) => {
   const year = new Date().getFullYear();
   return `<!doctype html>
 <html lang="en">
@@ -12,7 +20,7 @@ exports.orderSuccessfullSellerTemplate = ({ sellerName, buyerName, assetTitle, p
         <!-- Content -->
         <p style="line-height:1.6; margin:10px 0; color:#E5E7EB;">
           Hi <strong>${sellerName}</strong>,<br>
-          You have received a new order for your asset on DigiAssets.
+          You have received a new order for your asset on ${credentials.appName}.
         </p>
         
         <div style="background:#111827; border:1px solid #374151; border-radius:12px; padding:20px; margin:20px 0;">
@@ -33,7 +41,7 @@ exports.orderSuccessfullSellerTemplate = ({ sellerName, buyerName, assetTitle, p
         
         <!-- Footer -->
         <p style="font-size:12px; color:#9CA3AF; text-align:center; margin-top:15px;">
-          © ${year} DigiAssets • Seller Notification
+          © ${year} ${credentials.appName} • Seller Notification
         </p>
       </div>
     </div>

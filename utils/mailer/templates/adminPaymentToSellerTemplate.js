@@ -22,7 +22,7 @@ exports.adminPaymentToSellerTemplate = ({ sellerName, amount }) => {
         
         <!-- Call-to-action Button -->
         <p style="margin:25px 0; text-align:center;">
-          <a href="${credentials.dashboardUrl}" 
+          <a href="${credentials.dashboardurl}" 
              style="background:#9333EA; color:#fff; padding:12px 28px; border-radius:8px; text-decoration:none; font-weight:bold; display:inline-block;">
              View Transaction
           </a>
@@ -30,7 +30,7 @@ exports.adminPaymentToSellerTemplate = ({ sellerName, amount }) => {
         
         <!-- Footer -->
         <p style="font-size:12px; color:#9CA3AF; text-align:center; margin-top:20px;">
-          © ${year} DigiAssets Payments
+          © ${year} ${credentials.appName} Payments
         </p>
       </div>
     </div>

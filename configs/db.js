@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
-const { MONGO_URI } = require("./env");
-
+require("dotenv").config();
+// const { MONGO_URI } = require("./env");
+const MONGO_URI = process.env.MONGO_URI;
 const MAX_RETRIES = 5;
 let retries = 0;
 
