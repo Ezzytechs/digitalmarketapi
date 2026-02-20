@@ -66,8 +66,9 @@ const listAssetRules = [
 
   body("metadata.accountAge")
     .optional()
-    .isInt({ min: 0 })
-    .withMessage("Account age must be a positive integer"),
+    .toFloat()
+    .isFloat({ min: 0 })
+    .withMessage("Account age must be a positive number"),
 
   body("metadata.engagementRate")
     .optional()
@@ -144,8 +145,8 @@ const updateAssetRules = [
 
   body("metadata.accountAge")
     .optional()
-    .toInt()
-    .isInt({ min: 0 })
+    .toFloat()
+    .isFloat({ min: 0 })
     .withMessage("Account age must be a positive integer"),
 
   body("metadata.engagementRate")

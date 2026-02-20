@@ -32,13 +32,6 @@ const createPostRules = [
   // Tags (optional)
   body("tags").optional().trim().escape(),
 
-  // Author
-  body("author")
-    .notEmpty()
-    .withMessage("Author is required")
-    .custom((value) => mongoose.Types.ObjectId.isValid(value))
-    .withMessage("Author must be a valid ID"),
-
   // Thumbnail (optional)
   body("thumbnail")
     .optional()
@@ -64,7 +57,7 @@ const updatePostRules = [
     .trim()
     .notEmpty()
     .withMessage("Content cannot be empty")
-    .escape()
+    // .escape()
     .isLength({ max: 5000 })
     .withMessage("Content must be under 5000 characters"),
 

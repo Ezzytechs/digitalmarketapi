@@ -36,6 +36,7 @@ exports.getAllPosts = async (req, res) => {
       limit,
       page,
       populate: "author",
+      populateSelect: "fullName email username isAdmin",
     };
     const posts = await paginate(Post, options);
     if (!posts || posts.length === 0)
@@ -49,7 +50,10 @@ exports.getAllPosts = async (req, res) => {
 // Get a single post by ID
 exports.getPostById = async (req, res) => {
   try {
-    const post = await Post.findById(req.params.id);
+    const post = await Post.findById(req.params.id).populate({
+      path: "author",
+      select: "username email fullName isAdmin",
+    });
     if (!post) return res.status(404).json({ message: "Post not found" });
     res.status(200).json(post);
   } catch (err) {

@@ -10,9 +10,10 @@ const postSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  image:String,
+  image: String,
   tags: String,
   author: {
+    require: false,
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },
